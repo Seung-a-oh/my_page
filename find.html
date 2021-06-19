@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spoto</title>
+
+    <style>
+        form > input {
+            width: 80%; 
+            height: 30px;
+            font-size: 20px;
+            margin: 12px 30px 0 15px;
+            border-width: 0px;
+            display: fixed;
+            right: 20px;
+        }
+
+        #finder {
+            position: absolute;
+            right: 30px; top:20px;
+        }
+
+        hr {
+            height: 0.5px;
+            background-color:rgb(0, 0, 0);
+        }
+
+        #search {
+            margin-left: 15px;
+            display: none;
+        }
+
+        #searching_box {
+            margin-left: 100px;
+        }
+        #logo {
+            position: absolute;
+            margin: 0px;
+        }
+    </style>
+
+    <style>
+        @media screen and (max-width:700px){
+            hr {
+                display: none;
+            }
+            #logo {
+                position: relative;
+                display: block;
+                margin: 0px auto;
+                width: 200px;
+                height: 120px;
+            }
+            #finder {
+                top: 140px;
+            }
+            #searching_box {
+                margin-left: 30px;
+            }
+        }
+    </style>
+
+    <script src="http://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <script>
+        window.onload = function(){
+            var finder = document.getElementById('finder');
+            var search = document.getElementById('search');
+            var searching_box = document.getElementById('searching_box');
+            
+
+            finder.onclick = function() {
+                search.style.display="block";
+                search.textContent = searching_box.value + "에 대한 검색결과입니다.";
+            }        
+        }
+
+
+        // $(document).ready(function(){
+        //     $('#searching_box').keypress(function(event){
+        //         var text_value = $('input').val();
+        //         if (event.which == 13){
+        //             $('#search').text(text_value + '에 대한 검색결과').css({display: 'block'})
+        //             // finder.onclick;
+        //         }
+        //     })
+        // })
+        
+        function enterkey(){
+            if(window.event.keyCode == 13){   
+                $(document).ready(function(){ 
+                    var text_value = $('input').val();
+
+                    $('#search').text(text_value+'에 대한 검색결과입니다.').css({
+                        display: 'block'
+                    });
+                });
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <header>
+        <div>            
+            <a href="./index.html" ><img id="logo" src="./png/spoto_logo.png" width="100px" height="60px"></a>
+        </div>
+        <div>
+            <form>
+                <input onkeyup="enterkey()" type="text" id="searching_box" placeholder="검색어를 입력하세요.">
+            </form>
+            <a href="#"><img id="finder" src="./png/finder.png" width="30px" height="30px"></a>
+            <hr>
+        </div>
+        <div>
+            <p id="search">"에 대한 검색결과입니다.</p>
+        </div>
+    </header>
+</body>
+</html>
