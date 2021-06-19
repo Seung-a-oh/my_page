@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spoto</title>
+
+    <style>
+        
+        header h2 {
+            margin-top: 20px;
+            text-align: center;
+        }
+        header h4 {
+            text-align: left;
+            margin-left: 30px;
+        }
+
+        .big_box {
+            height: 260px; line-height: 250px;
+            margin-left: 30px;  margin-right: 30px;
+            background-color: rgb(231, 231, 231);
+            border-radius: 30px;
+            padding: 20px 30px;
+            overflow-y: scroll;
+            
+        }
+
+        .box {
+            width: 29%;
+            background-color: rgb(255, 255, 255);
+            border-radius: 3px;
+            float: left;
+            margin: 10px 2%;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .box > img {     
+            vertical-align: middle;
+        }
+
+        .text_box {
+            border-style: solid;
+            border-color: rgb(82, 96, 116);
+            height: 150px;
+            margin: 35px;
+            padding: 25px;
+        }
+
+        header a {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+        }
+
+        header h2 {
+            margin-top: 20px;
+            text-align: center;
+        }
+        header h4 {
+            text-align: left;
+            margin-left: 30px;
+        }
+
+        .big_box {
+            height: 260px; line-height: 250px;
+            margin-left: 30px;  margin-right: 30px;
+            background-color: rgb(231, 231, 231);
+            border-radius: 30px;
+            padding: 20px 30px;
+            overflow-y: scroll;
+            
+        }
+
+        .box {
+            width: 29%;
+            background-color: rgb(255, 255, 255);
+            border-radius: 3px;
+            float: left;
+            margin: 10px 2%;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .box > img {     
+            vertical-align: middle;
+        }
+
+        .text_box {
+            border-style: solid;
+            border-color: rgb(82, 96, 116);
+            height: 150px;
+            margin: 35px;
+            padding: 25px;
+        }
+
+        header a {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+        }
+    </style>
+
+    <script src="http://code.jquery.com/jquery-3.1.0.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#title').css({
+                background: 'yellow',marginLeft:280,marginRight:280
+                ,opacity:0.1
+            }).animate({
+                opacity: 0.8
+            }, 500)
+        })
+    </script>
+</head>
+<body>
+    <header>
+        <h2 id="title">순천향대학교를 한눈에 볼 수 있는 곳!</h2>
+        <a href="./index.html"><img width="100px" src="./png/spoto_logo.png"></a>
+        <h4><img src="./png/badge.png" width="30px"> 오승아</h4>
+        
+    </header>
+    <section>
+        <div class="big_box">            
+            <div class="mid">
+                <div class="box"><img class="box_img" src="./png/post_school.png" width="100%" height=""></div>
+                <div class="box"><img class="box_img" src="./png/post_school1.PNG" width="100%"></div>
+                <div class="box"><img class="box_img" src="./png/post_school2.PNG" width="100%"></div>
+                <div class="box"><img class="box_img" src="png/squre.PNG" width="100%"></div>
+            </div>
+            </div>
+        <div class="text_box">
+            <div class="content">
+                순천향 대학교를 한눈에 볼 수 있는 곳! 밤에는 야경도 아름다우니 한 번 와보세요~
+                학교 안 광장도 매우 예쁘니 한번씩 들려보세요 ~
+            </div>
+        </div>
+    </section>
+
+
+    <header>
+        <h2>순천향대학교 근처의 아담한 저수지</h2>
+        <a href="./index.html"><img width="100px" src="./png/spoto_logo.png"></a>
+        <h4><img src="./png/heemang_profile.jpg" width="30px"> 히망이</h4>
+        
+    </header>
+    <section>
+        <div class="big_box">            
+            <div class="mid">
+                <div class="box"><img class="box_img" src="./png/post_lake.png" width="100%" height=""></div>
+                <!-- <div class="box"><img class="box_img" src="./png/post_school1.PNG" width="100%"></div>
+                <div class="box"><img class="box_img" src="./png/post_school2.PNG" width="100%"></div>
+                <div class="box"><img class="box_img" src="png/squre.PNG" width="100%"></div> -->
+            </div>
+            </div>
+        <div class="text_box">
+            <div class="content">
+                순천향 대학교에서 도보로 5분 정도에 있는 아담한 저수지입니다.
+                소방서를 지나서 바로 있고요. 생각보다 예쁘답니다~ 한 번 가보세요:)
+            </div>
+        </div>
+    </section>
+</body>
+</html>
