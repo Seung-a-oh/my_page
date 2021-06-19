@@ -1,0 +1,613 @@
+﻿<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>SPOTO</title> 
+    <!-- 초기화 -->
+    <style>
+        * {
+            margin: 0; padding: 0;
+            /* font-family: 'Malgun Gotic', sans-serif; */
+        }
+
+        a { text-decoration: none; }
+        img { border: 0; }
+        html { background: #f7f5f5; }
+    </style>
+    <!-- 헤더 -->
+    <style>
+        .header-category {
+            float: left;
+        }
+
+        .header-menu {
+            float: right;
+        }
+    </style>
+    <!-- 드롭다운 -->
+    <style>
+        .outer-menu {
+            float: left;
+            width: 100px; height: 20px;
+            line-height: 20px;
+            padding: 10px 0;
+            position: relative;
+            text-align: center;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            z-index: 9999;
+        }
+
+        .outer-menu:hover { background: #E1DFDF; }
+
+        .inner-menu {
+            display: none;
+            background: #FFFFFF;
+            margin-top: 10px;
+            width: 100%;
+
+            border-top: 1px solid #cccaca;
+            box-shadow: 0 2px 4px rgba(34,25,25,0.5);
+        }
+
+        .inner-menu a {
+            display: block;
+            padding: 5px 10px;
+            z-index: 5000;
+        }
+
+        .inner-menu a:hover { background: #E1DFDF; }
+    </style>
+   
+ 
+    <!-- 종이 스타일 -->
+    <style>
+        .paper img{
+            width: 190px;
+            margin-top: 10px;
+            /* padding: 15px 15px 0; */
+            background: #a8a7a70c;
+            box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+            border-radius: 10px;
+        }
+    </style>
+
+    <!-- 섹션 -->
+    <style>
+        /* 미디어 쿼리를 지원하지 않는 웹 브라우저 */
+        #main-section {
+            width: 850px;
+            margin: 40px auto;
+        }
+
+        /* 3줄 */
+        @media (max-width: 919px) {
+            #main-section { width: 690px; }
+        } 
+
+        /* 4줄 */
+        @media (min-width: 920px) and (max-width:1149px) {
+            #main-section { width: 920px; }
+        } 
+
+        /* 5줄 */
+        @media (min-width:1150px) and (max-width:1379px) {
+            #main-section { width: 1150px; }
+        }
+
+        /* 6줄 */
+        @media (min-width:1380px) {
+            #main-section { width: 1380px; }
+        }
+    </style>
+
+    <!-- 라이트박스 -->
+    <style>
+        #darken-background {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 100%; 
+
+            display: none;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            overflow-y: scroll;
+        }
+
+        #lightbox {
+            width: 700px;
+            margin: 20px auto; padding: 15px;
+
+            border: 1px solid #333333;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 5px 5px rgba(34, 25, 25, 0.4);
+
+            text-align: center;
+        }
+
+        .user-information {  overflow: hidden;  text-align: left; }
+        .user-information-image { float: left; width: 70px; }
+        .user-information-text { float: right; width: 620px;  }
+        .lightbox-splitter { margin: 10px 0; }
+
+    </style>
+
+<style>
+
+    body {
+        margin: 0px;
+    }
+
+    #spoto {
+        text-align: center;
+        font-size: 60px;
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0px;
+        line-height: 50px;
+        height: 65px;
+        background-color: rgba(206, 206, 206, 0.377);
+        text-align: middle;
+    }
+
+    #spoto > a {
+        text-decoration: none;
+        color: black;
+        margin: 0;
+    }
+
+    #finder {
+        position: absolute;
+        right: 20px; top:13px;
+        margin: 0px;
+    }
+
+    .category {
+        position: absolute;
+        left: 23px; top:16px;
+        margin: 0px;
+    }
+
+    header {
+        margin: 0px;
+    }
+
+    footer p {
+        text-align: right;
+    }
+
+    .menu {
+        position: absolute;
+        z-index: 999;
+        width: 200px;
+        padding-bottom: 100%;
+        background-color: rgba(206, 206, 206, 0.377);
+        float: left;
+        box-shadow: 1px 0 100px rgb(211, 210, 210);
+        padding-top: 20px;
+        padding-left: 30px;
+        display: none;
+    }
+    
+    #list {
+        padding-inline-start: 0px;
+        list-style: none;
+    }
+
+    ul {
+        text-align: left;
+        padding: 0px;
+        list-style: none;
+    }
+
+    li {
+        padding: 10px 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+   
+   .local {
+       display: none;
+   }
+
+   .theme {
+       display: none;
+   }
+
+   .free {
+       display: none;
+   }
+
+   .private {
+       display: none;
+   }
+    
+</style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="jquery.masonry.min.js"></script>
+    <script src="jquery.imagesloaded.min.js"></script>
+    <script>
+       // 페이지
+        $(document).ready(function () {
+            // 이미지 로드 확인
+            $('#main-section').imagesLoaded(function () {
+                // jQuery Masonry 플러그인 적용
+                $('#main-section').masonry({
+                    itemSelector: '.paper',
+                    columnWidth: 230,
+                    isAnimated: true
+                });
+            });
+        });
+        
+        // 라이트 박스
+        $(document).ready(function () {
+        
+            function showLightBox() {
+                // 라이트박스를 보이게 합니다.
+                $('#darken-background').show();
+                $('#darken-background').css('top', $(window).scrollTop());
+                // 스크롤을 못하게 합니다.
+                $('body').css('overflow', 'hidden');
+            }
+
+            function hideLightBox() {
+                // 라이트박스를 안 보이게 합니다.
+                $('#darken-background').hide();
+
+                // 스크롤을 하게 합니다.
+                $('body').css('overflow', '');
+            }
+
+            // 라이트박스 제거 이벤트
+            $('#darken-background').click(function () {
+                hideLightBox();
+            });
+
+              // 클릭 이벤트 연결
+            // $('.paper').click(function () {
+            //     // var str = $(this).attr("src");
+            //     // i=str.substring(13,14);
+            //     showLightBox();
+            // });
+
+            $('#img1').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/1.jpg');
+                showLightBox();
+            });
+
+            $('#img2').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/2.jpg');
+                showLightBox();
+            });
+
+            $('#img3').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/3.jpg');
+                showLightBox();
+            });
+
+            $('#img4').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/4.jpg');
+                showLightBox();
+            });
+            
+            $('#img5').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/5.jpg');
+                showLightBox();
+            });
+
+            $('#img6').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/6.jpg');
+                showLightBox();
+            });
+
+            $('#img7').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/7.jpg');
+                showLightBox();
+            });
+            
+            $('#img8').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/8.jpg');
+                showLightBox();
+            });
+            
+            $('#img9').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/9.jpg');
+                showLightBox();
+            });
+            
+            $('#img10').click(function () {
+                $('#imgg').attr('src', 'pinterst_png/10.jpg');
+                showLightBox();
+            });
+            
+            // 라이트박스 제거 이벤트 보조
+            $('#lightbox').click(function (event) {
+                event.stopPropagation()
+            });
+        });
+    </script>
+    <script>
+        //메뉴(카테고리) 다운 & 업
+        $(document).ready(function () {
+            
+            $('.category').hover(function(){
+                $('.menu').slideDown('normal');
+            })
+            $('.menu').mouseleave(function(){
+                $('.menu').slideUp('normal');
+            })
+        
+            $('.local_title').hover(function(){
+                $('.local').slideDown('normal');
+            })
+            $('.local').mouseleave(function(){
+                $('.local').slideUp('normal');
+            })
+
+            $('.theme_title').hover(function(){
+                $('.theme').slideDown('normal');
+            })
+            $('.theme').mouseleave(function(){
+                $('.theme').slideUp('normal');
+            })
+
+
+            $('.free_title').hover(function(){
+                $('.free').slideDown('normal');
+            })
+            $('.free').mouseleave(function(){
+                $('.free').slideUp('normal');
+            })
+
+
+            $('.private_title').hover(function(){
+                $('.private').slideDown('normal');
+            })
+
+            $('.private').mouseleave(function(){
+                $('.private').slideUp('normal');
+            })
+
+
+            $('.menu').mouseleave(function(){
+                $('.local').slideUp('normal');
+                $('.theme').slideUp('normal');
+                $('.free').slideUp('normal');
+                $('.private').slideUp('normal');
+            })
+        });
+
+    </script>
+    
+    <script>
+        $(document).ready(function () {
+            // 문서 객체 추가 함수
+            var appendDocument = function () {
+                // var $dynamic = $('#main-section').imagesLoaded(function () {
+                //     $('#main-section').masonry({
+                //         itemSelector: '.paper',
+                //         columnWidth: 230,
+                //         isAnimated: true
+                //     });
+                // })
+                
+                var $clone = $('#main-section').clone();
+                
+                $('#main-section').append($clone);
+            };
+            // 초기에 문서 객체를 추가합니다.
+            appendDocument();
+            // 이벤트를 연결합니다.
+            $(window).scroll(function () {
+                // 변수를 선언합니다.
+                var scrollHeight = $(window).scrollTop() + $(window).height();
+                var documentHeight = $(document).height();
+                // 검사합니다.
+                if (scrollHeight+50 > documentHeight) {
+                    appendDocument();
+                }
+            });
+
+        });
+    </script>
+</head> 
+<body> 
+    <!-- 헤더 --> 
+    <header id="main-header"> 
+        <h1 id="spoto">
+            <a href="./index.html">spoto</a>
+            <audio loop autoplay>
+                <source src="audio/bensound-dreams.mp3" type="audio/mp3">
+            </audio>
+        </h1> 
+        <a href="./find.html"><img id="finder" src="./png/finder.png" width="35px" height="35px"></a>
+        <a href=""><img class="category" src="./png/category.png" width="33px" height="33px"></a>
+    
+        <div class="menu">
+            <ul id="list">
+                <li><a href="#"><h3 class="local_title">지역별 스팟</h3></a></li>
+                <ul class="local"> 
+                    <li><a href="#">서울</a></li>
+                    <li><a href="#">경기</a></li>
+                    <li><a href="#" >인천</a></li>
+                    <li><a href="local.html" >충청</a></li>
+                    <li><a href="#" >전라</a></li>
+                    <li><a href="#" >경상</a></li>
+                    <li><a href="#" >강원</a></li>
+                </ul>
+                <li><a href="#" class="theme_title"><h3>테마별 스팟</h3></a></li>
+                <ul class="theme">
+                    <li><a href="#">바다</a></li>
+                    <li><a href="#">산</a></li>
+                    <li><a href="#">자연</a></li>
+                    <li><a href="#">건물</a></li>
+                </ul>
+                <li><a href="#" class="free_title"><h3>게시판</h3></a></li>
+                <ul class="free">
+                    <li><a href="#">자유 모임방</a></li>
+                    <li><a href="#">사진 꿀팁</a></li>
+                </ul>                    
+                <li><a href="#" class="private_title"><h3>마이페이지</h3></a></li>
+                <ul class="private">
+                    <li><a href="#">마이 플레이스</a></li>
+                    <li><a href="#">마이 포스트</a></li>
+                </ul>
+                <ul class="vv">
+                    <li><a href="video.html"><h3>동영상</h3></li>
+                </ul>
+            </ul>
+        </div>
+    </header> 
+
+    <section id="main-section"> 
+    <div id="main-part">
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img1" width="190" src="pinterst_png/1.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img2" width="190" src="pinterst_png/2.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img3" width="190" src="pinterst_png/3.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img4" width="190" src="pinterst_png/4.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img5" width="190" src="pinterst_png/5.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img6" width="190" src="pinterst_png/6.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img7" width="190" src="pinterst_png/7.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img8" width="190" src="pinterst_png/8.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img9" width="190" src="pinterst_png/9.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img id="img10" width="190" src="pinterst_png/10.jpg" /></a> 
+            </div> 
+        </div> 
+    </div>
+
+    <!-- <div id="infinity-section">
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/11.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/12.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/13.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/14.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/15.jpg" /></a> 
+            </div> 
+        </div> 
+
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/16.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/17.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/18.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/19.jpg" /></a> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="pinterst_png/20.jpg" /></a> 
+            </div> 
+        </div> 
+    </div>     -->
+         
+    </section> 
+
+    
+    <!-- 라이트박스 --> 
+    <div id="darken-background"> 
+        <div id="lightbox"> 
+            <div class="user-information"> 
+                <a class="user-information-image" href="#">
+                    <img src="http://placekitten.com/70/70" />
+                </a> 
+                <div class="user-information-text">
+                    <h3>User</h3>
+                    <p>최고의 장소, 추천합니다!</p>
+                </div> 
+            </div>
+            <hr class="lightbox-splitter" />
+            <img width=500 id="imgg" src="pinterst_png/1.jpg" /> 
+        </div> 
+    </div> 
+</body> 
+</html> 
